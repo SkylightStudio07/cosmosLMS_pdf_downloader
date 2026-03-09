@@ -1,82 +1,58 @@
 # cosmosLMS_pdf_downloader
-cosmos LMS에 올라와있는 pdf 이미지를 자동으로 다운로드 받아주는 도구.
+
+cosmos LMS에 올라와 있는 PDF 이미지를 자동으로 다운로드하여 PDF로 변환해주는 도구.
+
+---
 
 # 사용법
 
-## ✓ 크롬 버젼에 맞는 드라이버를 다운로드
-
-### 버젼확인방법
-
-우측상단 ... 클릭 -> 도움말 -> Chrome정보
-
-### 크롬 드라이버 다운로드
-[https://sites.google.com/chromium.org/driver/](https://sites.google.com/chromium.org/driver/)
-
-## ✓ download_list 파일 작성
-
-download_list 라는 파일을 작성 해 다운로드할 주소를 입력.
-
-여러개 입력시 줄 바꿈으로 구분.
-
-이후 경로를 config.ini에 설정
-
-## ✓ config.ini 파일 설정
-
-config.ini 파일을 열어 파라미터를 수정해 사용. (주석 참고)
+## ✓ 1. 라이브러리 설치
 
 ```
+pip install -r requirements.txt
+```
+
+크롬 드라이버는 **자동으로 설치**되므로 별도로 받을 필요 없음.
+
+## ✓ 2. 실행
+
+**`run.bat` 더블클릭** → GUI 창이 열림.
+
+또는 터미널에서:
+
+```
+python gui.py
+```
+
+## ✓ 3. GUI 사용
+
+1. **URL 입력창**에 다운로드할 URL을 붙여넣기 (여러 개는 줄바꿈으로 구분)
+2. **저장 경로** 확인 (기본값: `./downloads`)
+3. **▶ 다운로드 시작** 클릭
+4. 로그창에서 진행 상황 확인
+5. 완료 후 저장 경로에서 PDF 확인
+
+## ✓ 4. config.ini (선택)
+
+저장 경로 기본값은 `config.ini`에서 변경 가능.
+
+```ini
 [DEFAULT]
 # 이미지파일 저장 경로 (마지막 / 제외하고)
-# ex)./downloads
 SAVE_PATH = ./downloads
-
-# 크롬 드라이버 경로 설정(마지막 / 제외하고)
-# ex) ./chromedriver_win32_v87
-CHROME_DRIVER_PATH = ./chromedriver
-
-# 크롤링 할 url 리스트
-# 여러개 입력시 줄바꿈으로 구분
-DOWNLOAD_LIST = ./download_list
 ```
 
 ---
 
-# 라이브러리 다운로드 필요
+# 라이브러리
 
-## **Standard Library**
+| 패키지 | 용도 |
+|---|---|
+| `bs4` | HTML 파싱 |
+| `selenium` | 웹 자동화 |
+| `webdriver-manager` | ChromeDriver 자동 설치/관리 |
+| `img2pdf` | 이미지 → PDF 변환 |
 
-- configparser
-    
-    ⇒소스와 설정파일 분리를 위해 사용.
-    
-- os
-    
-    ⇒ os 명령어 실행.
-    
-- time
-    
-    ⇒ sleep 기능을 위해 사용.
-    
-
-## **3rd party Library**
-
-- urllib
-    
-    ⇒ 이미지 다운로드를 위해 사용
-    
-- bs4
-    
-    ⇒ html 요소 파싱을 위해 사용
-    
-- selenium
-    
-    ⇒ 웹 자동화 관련 라이브러리
-    
-- img2pdf
-
-    ⇒ 다운로드 받은 이미지를 pdf 파일로 변환시 사용.
-    
-
-## 한번에 설치 → `pip3 install -r requirements.txt`
+표준 라이브러리(`urllib`, `os`, `time`, `configparser`, `tkinter`)는 별도 설치 불필요.
 
 ---
