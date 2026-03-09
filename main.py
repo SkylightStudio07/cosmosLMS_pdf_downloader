@@ -5,6 +5,9 @@ import configparser
 from urllib.request import urlretrieve
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 import img2pdf
 
 
@@ -41,7 +44,8 @@ print(url_list)
 
 for url in url_list:
     # 셀레니움 시작
-    driver = webdriver.Chrome(chrome_driver_path)
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
     driver.get(url.strip("\n"))
     driver.implicitly_wait(10)
     sleep(3)
@@ -73,7 +77,7 @@ for url in url_list:
         try:
             thumb_id = soup.select_one("#thumb" + str(i)).attrs["id"]
             # 썸네일을 눌러야 이미지가 로딩되는 형식이라 썸네일을 하나하나 눌러줌.
-            driver.find_element_by_id(thumb_id).click()
+            driver.find_element(By.ID, thumb_id).click()
             # 로딩시간 1초정도 대기
             sleep(1)
             # 이미지가 들어있는 div 파싱
